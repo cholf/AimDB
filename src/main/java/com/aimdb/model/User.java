@@ -1,5 +1,7 @@
 package com.aimdb.model;
 
+import com.aimdb.common.CommnUtils;
+
 /**
  * Created by bbking on 16-12-17.
  */
@@ -16,6 +18,13 @@ public class User {
         this.id = id;
         this.name = name;
         this.phoneNum = phoneNum;
+    }
+
+    //偏移对象构造
+    public User(String id, String name, String phoneNum, int size) {
+        this.id = CommnUtils.interceptStr(id,size);
+        this.name = CommnUtils.interceptStr(name,size);
+        this.phoneNum = CommnUtils.interceptStr(phoneNum,size);
     }
 
     public String getId() {
