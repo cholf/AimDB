@@ -1,9 +1,6 @@
 package com.aimdb.core;
 
 import com.aimdb.common.DBUtils;
-import com.aimdb.model.User;
-
-import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**
