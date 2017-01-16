@@ -3,7 +3,7 @@ package B;
 import com.aimdb.container.B.BBTree;
 
 /**
- * Created by bbking on 17-1-12.
+ * Created by bbking
  */
 public class BTreeTest {
 

@@ -1,9 +1,11 @@
 package com.aimdb.container.B;
 
+import java.io.Serializable;
+
 /**
- * Created by bbking on 17-1-12.
+ * Created by bbking
  */
-public class BBTree<K extends Comparable<K>, V>  {
+public class BBTree<K extends Comparable<K>, V>  implements Serializable {
 
     private static final int M = 4;
     private Node root;
@@ -15,7 +17,7 @@ public class BBTree<K extends Comparable<K>, V>  {
         root = new Node(0);
     }
 
-    private static final class Node {
+    private static final class Node implements Serializable {
         private int childSize;
         private Entry[] children = new Entry[M];
         private Node(int size) {
@@ -23,7 +25,7 @@ public class BBTree<K extends Comparable<K>, V>  {
         }
     }
 
-    private static class Entry {
+    private static class Entry implements Serializable {
         private Comparable key;
         private final Object value;
         private Node next;
@@ -122,14 +124,15 @@ public class BBTree<K extends Comparable<K>, V>  {
     //××××××××××××××××××××××××××××××××
     public V get(K key) {
         if (key == null) throw new IllegalArgumentException("args null");
-        return search(root, key, height);
+        V v = search(root, key, height);
+        return v;
     }
 
     private V search(Node node, K key, int level) {
         Entry[] children = node.children;
         if (level == 0) {
             for (int j = 0; j < node.childSize; j++) {
-                if (equals(key, children[j].key)) return (V) children[j].value;
+                if (equalsCompare(key, (children[j].key).toString().trim())) return (V) children[j].value;
             }
         } else {
             for (int j = 0; j < node.childSize; j++) {
@@ -140,7 +143,7 @@ public class BBTree<K extends Comparable<K>, V>  {
         return null;
     }
 
-    private boolean equals(Comparable k1, Comparable k2) {
+    private boolean equalsCompare(Comparable k1, Comparable k2) {
         return k1.compareTo(k2) == 0;
     }
 

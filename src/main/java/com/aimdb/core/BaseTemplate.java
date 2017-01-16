@@ -1,6 +1,9 @@
 package com.aimdb.core;
 
 import com.aimdb.common.DBUtils;
+
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.lang.reflect.Field;
 
 /**
@@ -20,7 +23,6 @@ public class BaseTemplate {
                 }
             }
         }
-        DBUtils.closeRandomAccessFile();
     }
 
     public void update() {
@@ -43,6 +45,24 @@ public class BaseTemplate {
                 e.printStackTrace();
             }
         }
+        System.out.println(object.toString());
+    }
+
+    public void selectBySeek(Object object,int size, int seek) {
+        byte [] buffer = new byte[size];
+        RandomAccessFile rf=   DBUtils.getRandomAccessFile();
+        try {
+            Field[] fields = object.getClass().getDeclaredFields();
+            for (int i = 0; i < fields.length; i++) {
+                fields[i].setAccessible(true);
+                seek = i > 0 ? (seek + size) : seek;
+                rf.seek(seek);
+                rf.read(buffer);
+                fields[i].set(object,new String(buffer).trim());
+            }
+        } catch (Exception e) {
+                e.printStackTrace();
+            }
         System.out.println(object.toString());
     }
 }
