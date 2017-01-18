@@ -1,5 +1,7 @@
 package com.aimdb.common;
 
+import com.aimdb.anotation.Field;
+
 import java.util.Arrays;
 
 /**
@@ -13,7 +15,23 @@ public class CommnUtils {
      * @param size    截取或者填充后的大小
      * @return
      */
-    public static  String interceptStr(String input,int size) {
+    public static  String interceptStr(Object obj,String input,int size)  {
+        try {
+            java.lang.reflect.Field dd =obj.getClass().getDeclaredField("id");
+            System.out.println(dd);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        java.lang.reflect.Field[] fields = obj.getClass().getDeclaredFields();
+        for (java.lang.reflect.Field f :fields){
+            Field field = f.getAnnotation(Field.class);
+            if(field != null){
+                int length = field.size();
+                System.out.println(length);
+            }
+
+        }
+
         String result = null;
         if (input.getBytes().length > size) {
             byte[] newByte = new byte[size];

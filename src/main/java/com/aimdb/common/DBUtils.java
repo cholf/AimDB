@@ -1,5 +1,8 @@
 package com.aimdb.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,12 +21,12 @@ public class DBUtils {
     private  static  final  String db_name="TestInterceptDB.data";
     private  static  RandomAccessFile randomAccessFile = null;
 
-    public  static RandomAccessFile getRandomAccessFile(){
+    public  static RandomAccessFile getRandomAccessFile() throws FileNotFoundException {
         if(randomAccessFile == null){
             try {
                 randomAccessFile = new RandomAccessFile(new File(db_name),"rw");
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+               throw new  FileNotFoundException(e.getMessage());
             }
         }
         return  randomAccessFile;
@@ -34,7 +37,7 @@ public class DBUtils {
             try {
                 randomAccessFile.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                new IOException(e.getMessage());
             }
         }
     }
