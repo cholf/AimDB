@@ -1,3 +1,5 @@
+package com.aimdb.begin;
+
 import com.aimdb.model.User;
 
 import java.io.BufferedReader;
