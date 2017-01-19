@@ -35,8 +35,11 @@ public class Test {
         User u =new User();
         BBTree<String, Integer> obt = ( BBTree<String, Integer> )DBUtils.getObjFromFile("btree.obj");
         try {
+            long middle = System.currentTimeMillis();
+            System.out.println("1:"+(middle-start));
             int temp = obt.get("num999999").intValue();
-            System.out.println("1:"+(System.currentTimeMillis()-start));
+            long searchIndex = System.currentTimeMillis();
+            System.out.println("2:"+(searchIndex-middle));
             btl.selectBySeek(u,temp);
         } catch (Exception e) {
             e.printStackTrace();
