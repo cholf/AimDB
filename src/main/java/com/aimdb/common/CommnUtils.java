@@ -16,7 +16,6 @@ public class CommnUtils {
 
     public static  final  String LENGTH="length";
     public static  final  String STRING="str";
-    private  BaseTypeEnum baseTypeEnum;
     /**
      * 字符截取或者填充空格
      * @param input   输入字符
@@ -55,13 +54,12 @@ public class CommnUtils {
      * @param name
      * @return
      */
-    public  static BaseTypeEnum getBasicTypeEnum(String name){
-        BaseTypeEnum  baseTypeEnum;
-        BaseTypeEnum [] baseTypeEnums =  BaseTypeEnum.values();
-        for (int i =0;i<baseTypeEnums.length;i++){
+    public static BaseTypeEnum getBasicTypeEnum(String name) {
+        BaseTypeEnum[] baseTypeEnums = BaseTypeEnum.values();
+        for (int i = 0; i < baseTypeEnums.length; i++) {
             BaseTypeEnum b = baseTypeEnums[i];
-            if(b.getFullName().equalsIgnoreCase(name) || b.getBaseName().equalsIgnoreCase(name)){
-                return  b;
+            if (b.getFullName().equalsIgnoreCase(name) || b.getBaseName().equalsIgnoreCase(name)) {
+                return b;
             }
         }
         return null;
