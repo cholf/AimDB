@@ -48,7 +48,7 @@ public class SimpleDBFile {
 
     private User toUserByString(String userStr) {
         String users[] = userStr.split("/#");
-        User u = new User(users[0], users[1], users[2]);
+        User u = new User(users[0], users[1], users[2],22);
         return u;
     }
 

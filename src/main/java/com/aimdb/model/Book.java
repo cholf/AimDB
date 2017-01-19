@@ -1,13 +1,13 @@
 package com.aimdb.model;
 
-import com.aimdb.anotation.Field;
+import com.aimdb.anotation.AimField;
 
 /**
  * Created by bbking on 17-1-17.
  */
 public class Book {
 
-    @Field(size=15)
+    @AimField(length =15)
     private  String no;
 
     public String getNo() {
