@@ -2,7 +2,7 @@ package com.aimdb.container.BPlus.node;
 
 /**
  * Created by bbking on 17-1-7.
- * B+树节点,下分两种
+ * BP+树节点,下分两种
  * 1.索引节点，负责找到叶子节点
  * 2.叶子节点，负责存储实际信息
  */

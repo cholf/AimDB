@@ -3,7 +3,7 @@ package com.aimdb.core;
 import com.aimdb.anotation.AimField;
 import com.aimdb.common.CommnUtils;
 import com.aimdb.common.DBUtils;
-import com.aimdb.container.B.BBTree;
+import com.aimdb.container.BP.BPTree;
 import com.aimdb.enums.BaseTypeEnum;
 import com.aimdb.exception.AimFieldException;
 import com.aimdb.exception.InsertException;
@@ -26,7 +26,7 @@ public class BaseAimDBTemplate {
     private static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 15, 200,
             TimeUnit.MILLISECONDS, new ArrayBlockingQueue<Runnable>(5));
 
-    public void insert(Object object,String index,BBTree<String, Integer> bt) throws InsertException {
+    public void insert(Object object,String index,BPTree<String, Integer> bt) throws InsertException {
         try {
             RandomAccessFile raf = DBUtils.getRandomAccessFile();
             Field[] fields = object.getClass().getDeclaredFields();

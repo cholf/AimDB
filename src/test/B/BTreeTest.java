@@ -1,6 +1,6 @@
 package B;
 
-import com.aimdb.container.B.BBTree;
+import com.aimdb.container.BP.BPTree;
 
 /**
  * Created by bbking
@@ -9,7 +9,7 @@ public class BTreeTest {
 
     public static void main(String[] args) {
 
-        BBTree<String, String> st = new BBTree<String, String>();
+        BPTree<String, String> st = new BPTree<String, String>();
         st.put("9", "9久");
         st.put("2", "2二");
         st.put("3", "3三");
