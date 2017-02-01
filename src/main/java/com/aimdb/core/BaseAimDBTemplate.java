@@ -1,19 +1,16 @@
 package com.aimdb.core;
 
-import com.aimdb.anotation.AimField;
-import com.aimdb.common.CommnUtils;
-import com.aimdb.common.DBUtils;
+import com.aimdb.utils.DBUtils;
 import com.aimdb.container.BP.BPTree;
 import com.aimdb.enums.BaseTypeEnum;
 import com.aimdb.exception.AimFieldException;
 import com.aimdb.exception.InsertException;
-import com.aimdb.exception.SeekException;
+import com.aimdb.exception.DataAccessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.RandomAccessFile;
 import java.lang.reflect.Field;
-import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -27,7 +24,7 @@ public class BaseAimDBTemplate {
             TimeUnit.MILLISECONDS, new ArrayBlockingQueue<Runnable>(5));
 
     public void insert(Object object,String index,BPTree<String, Integer> bt) throws InsertException {
-        try {
+       /* try {
             RandomAccessFile raf = DBUtils.getRandomAccessFile();
             Field[] fields = object.getClass().getDeclaredFields();
             int seek = 0;
@@ -50,12 +47,12 @@ public class BaseAimDBTemplate {
         } finally {
           //  DBUtils.closeRandomAccessFile();
             System.out.println("");
-        }
+        }*/
     }
 
     private  void writeByeType(RandomAccessFile raf, BaseTypeEnum baseTypeEnum, Object obj){
 
-        try {
+       /* try {
             switch (baseTypeEnum){
                 case BYTE:
                     raf.writeByte(Integer.parseInt(String.valueOf(obj)));
@@ -81,7 +78,7 @@ public class BaseAimDBTemplate {
             }
         }catch (Exception e){
 
-        }
+        }*/
 
     }
     public void update() {
@@ -112,9 +109,9 @@ public class BaseAimDBTemplate {
      * @param object
      * @param seek
      */
-    public void selectBySeek(Object object, int seek) throws SeekException,AimFieldException {
+    public void selectBySeek(Object object, int seek) throws DataAccessException,AimFieldException {
         RandomAccessFile raf = null;
-        try {
+       /* try {
             raf = DBUtils.getRandomAccessFile();
             raf.seek(seek);
             Field[] fields = object.getClass().getDeclaredFields();
@@ -144,10 +141,10 @@ public class BaseAimDBTemplate {
             }
         } catch (Exception e) {
             logger.error("BaseAimDBTemplate-selectBySeek,e:{}", e);
-            throw new SeekException("BaseAimDBTemplate-selectBySeek-Exception");
+            throw new DataAccessException("BaseAimDBTemplate-selectBySeek-Exception");
         }finally {
            // DBUtils.closeRandomAccessFile();
-        }
+        }*/
         System.out.println(object.toString());
     }
 }

@@ -1,6 +1,12 @@
 package BP;
 
 import com.aimdb.container.BP.BPTree;
+import com.aimdb.exception.DataAccessException;
+import com.aimdb.model.User;
+import com.aimdb.query.AimQuery;
+import com.aimdb.query.api.AimDbTemplate;
+import com.aimdb.query.common.AimDbTemplateImp;
+import com.aimdb.utils.DBUtils;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -10,12 +16,20 @@ public class Test {
     private  int j;
     public static void main(String[] args) {
 
-        BPTree<String, Integer> bt = new BPTree<String, Integer>();
-        for (int i=0;i<10;i++){
-            bt.put("k"+i,i);
-        }
-        System.out.println(JSONObject.toJSON(bt.get("k0")));
+       /* BPTree<String, String> bt = new BPTree<String, String>();
+        AimDbTemplate btl  = new AimDbTemplateImp();
+        for (int i=0;i<200;i++){
+            User user = new User("num"+i,"bbking"+i,"徐刚文"+i, i);
+            try {
+                btl.insert(user);
+            } catch (DataAccessException e) {
+                e.printStackTrace();
+            }
+        }*/
 
+       /* System.out.println(JSONObject.toJSON(bt.getLists("张三")));
+        System.out.println(JSONObject.toJSON(bt.get("张三")));
+*/
 
 
        /*BPTree<String, Integer> bt = new BPTree<String, Integer>();
@@ -43,12 +57,23 @@ public class Test {
             int temp = obt.get("num999999").intValue();
             long searchIndex = System.currentTimeMillis();
             System.out.println("2:"+(searchIndex-middle));
-            btl.selectBySeek(u,temp);
+            btl.selectBySeek(u,temp);raf.seek(seek);
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println(JSONObject.toJSON(u));
         System.out.println(System.currentTimeMillis()-start);*/
+
+        AimDbTemplate btl  = new AimDbTemplateImp();
+        User u =new User();
+        AimQuery query = new AimQuery();
+        query.appendIsCriteria("id","num0");
+        try {
+            btl.selectOne(u,query);
+            System.out.print(JSONObject.toJSON(u));
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
 
 
     }

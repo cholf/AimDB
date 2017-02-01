@@ -1,6 +1,8 @@
 package com.aimdb.container.BP;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bbking
@@ -11,6 +13,7 @@ public class BPTree<K extends Comparable<K>, V> implements Serializable {
     private Node root;
     private int height;
     private int kvnums;// k-v对数
+    private static  final int  MAX_SIZE=20;//列表查询最大数
 
     public BPTree() {
         root = new Node(null, null, 0);
@@ -78,7 +81,7 @@ public class BPTree<K extends Comparable<K>, V> implements Serializable {
     private Node handDffLevel(Node oldNode, K key, V val, int level, Node newNode) {
         int index = 0;
         for (int j = 0; j < oldNode.childSize; j++) {
-            if ((j + 1 == oldNode.childSize) || smaller(key, oldNode.children[j + 1].key)) {// 最后一个孩子，或者小于j+1个孩子
+            if ((j + 1 == oldNode.childSize) || smallerOrEquals(key, oldNode.children[j + 1].key)) {// 最后一个孩子，或者小于j+1个孩子
                 index = j + 1;
                 Node temp = oldNode.children[j];
                 Node u = insert(temp, key, val, level - 1);
@@ -96,7 +99,7 @@ public class BPTree<K extends Comparable<K>, V> implements Serializable {
     private Node handSameLevel(K key, Node newNode, Node oldNode) {
         int i = 0;
         for (; i < oldNode.childSize; i++) {
-            if (smaller(key, oldNode.children[i].key))
+            if (smallerOrEquals(key, oldNode.children[i].key))
                 break;
         }
         return exChange(oldNode, i, newNode);
@@ -130,11 +133,11 @@ public class BPTree<K extends Comparable<K>, V> implements Serializable {
         return newer;
     }
 
-    private boolean smaller(Comparable k1, Comparable k2) {
-        return k1.compareTo(k2) < 0;
+    private boolean smallerOrEquals(Comparable k1, Comparable k2) {
+        return k1.compareTo(k2) <= 0;
     }
 
-    // ××××××××××××××××××××××××××××××××
+    // ××××××××××××××××××××××××××××××××搜索kv(one)
     public V get(K key) {
         if (key == null)
             throw new IllegalArgumentException("args null");
@@ -151,7 +154,7 @@ public class BPTree<K extends Comparable<K>, V> implements Serializable {
             }
         } else {
             for (int j = 0; j < node.childSize; j++) {
-                if (j + 1 == node.childSize || smaller(key, children[j + 1].key))
+                if (j + 1 == node.childSize || smallerOrEquals(key, children[j + 1].key))
                     return search(children[j], key, level - 1);
             }
         }
@@ -162,4 +165,31 @@ public class BPTree<K extends Comparable<K>, V> implements Serializable {
         return k1.compareTo(k2) == 0;
     }
 
+
+    // ××××××××××××××××××××××××××××××××搜索kv(list)
+    public List<V> getLists(K key) {
+        if (key == null)
+            throw new IllegalArgumentException("args null");
+        return searchLists(root, key, height);
+    }
+
+    List<V> vs = new ArrayList<V>(MAX_SIZE);
+    private List<V>  searchLists(Node node, K key, int level) {
+        int tempIndex =0;
+        Node[] children = node.children;
+        if (level == 0) {
+            for (int j = 0; j < node.childSize; j++) {
+                tempIndex =j;
+                if (equalsCompare(key, (children[j].key).toString().trim()))
+                    vs.add ((V) children[tempIndex].value);
+            }
+        } else {
+            for (int k = 0; k < node.childSize; k++) {
+                tempIndex=k;
+                if (k + 1 == node.childSize || smallerOrEquals(key, children[k + 1].key))
+                     searchLists(children[tempIndex], key, level - 1);
+            }
+        }
+        return vs;
+    }
 }

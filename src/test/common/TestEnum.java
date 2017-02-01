@@ -1,6 +1,6 @@
 package common;
 
-import com.aimdb.common.DBUtils;
+import com.aimdb.utils.DBUtils;
 
 /**
  * Created by bbking on 17-1-17.

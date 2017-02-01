@@ -1,13 +1,14 @@
 package com.aimdb.model;
 
 import com.aimdb.anotation.AimField;
-import com.aimdb.common.CommnUtils;
+import com.aimdb.anotation.AimIndex;
 
 /**
  * Created by bbking on 16-12-17.
  */
 public class User {
 
+    @AimIndex
     @AimField(length = 17)
     private String id;
 
